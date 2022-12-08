@@ -1,5 +1,5 @@
 class Enemy {
-  constructor(x, y, w, h) {
+  constructor(x, y, w, h, hidden) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -8,10 +8,21 @@ class Enemy {
     this.img = loadImage('assets/man.png');
 
     this.isClicked = false;
+
+    this.hidden = hidden;
+    this.text = null;
   }
 
   show() {
     image(this.img, this.x, this.y, this.w, this.h);
+
+    if (!this.text) {
+      this.text = random(0, 1) > 0.5 ? '교수' : '최유정';
+    }
+
+    if (this.hidden) {
+      text(this.text, this.x + 30, this.y);
+    }
   }
 
   move(move_x, move_y) {
