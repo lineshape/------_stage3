@@ -78,10 +78,11 @@ function draw() {
     // 최승아, 교수님 적이 나옴
     if (!new_timer) {
       new_timer = setInterval(plus_hidden_enemy, 2000);
+      choi.changeImage();
     }
 
     background(150);
-    fill(255,0,0);
+    fill(255, 0, 0);
     text(choi_dialogs[choi_clicked], 30, 200);
     fill(0);
   } else {

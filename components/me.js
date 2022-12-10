@@ -31,4 +31,8 @@ class Me {
     this.isClicked = false;
     return false;
   }
+
+  changeImage() {
+    this.img = loadImage('assets/choi_blood.png');
+  }
 }
