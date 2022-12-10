@@ -15,6 +15,8 @@ let new_timer = undefined;
 let kyosu;
 let youjeong;
 
+let sound;
+
 const choi_dialogs = [
   '',
   '',
@@ -30,6 +32,7 @@ const choi_dialogs = [
 function preload() {
   hammer_img = loadImage('assets/hammer.png');
   blood_img = loadImage('assets/blood.png');
+  sound = loadSound('assets/망치 1.mp3');
 }
 
 function setup() {
@@ -79,7 +82,7 @@ function draw() {
   }
 
   // 상단 점수 보여주는 텍스트
-  text('죽인 횟수 : ' + score, 300, 50);
+  text('죽인 인간 : ' + score, 300, 50);
 
   // 적을 보여주는 루프
   for (let i = 0; i < enemys.length; i++) {
