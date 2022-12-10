@@ -41,12 +41,12 @@ function preload() {
   sound2 = loadSound('assets/망치 2.mp3');
   sound3 = loadSound('assets/망치 3.mp3');
 
-  startButton = new Button(150, 150, 100, 50, '게임 시작');
+  startButton = new Button(150, 150, 100, 50, 'Start');
 }
 
 function setup() {
   createCanvas(400, 400);
-  choi = new Me(0, 250, 100, 100);
+  choi = new Me(0, 250, 150, 150);
 }
 
 function draw() {
@@ -81,7 +81,9 @@ function draw() {
     }
 
     background(150);
+    fill(255,0,0);
     text(choi_dialogs[choi_clicked], 30, 200);
+    fill(0);
   } else {
     background(220);
   }
@@ -136,9 +138,9 @@ function draw() {
   // 핏자국
   for (let i = 0; i < blood_List.length; i++) {
     if (blood_List[i].isChoi) {
-      image(blood_img, blood_List[i].x, blood_List[i].y, 100, 100);
+      image(blood_img, blood_List[i].x, blood_List[i].y, 200, 200);
     } else {
-      image(blood_img, blood_List[i].x, blood_List[i].y, 50, 50);
+      image(blood_img, blood_List[i].x, blood_List[i].y, 100, 100);
     }
   }
 }

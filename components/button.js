@@ -22,7 +22,7 @@ class Button {
     textSize(18);
     text(
       this.title,
-      this.x + this.w / 2 - this.title.length * 7.5,
+      this.x + this.w / 2 - this.title.length * 4,
       this.y + this.h / 2 + 5
     );
   }
