@@ -17,7 +17,7 @@ class Enemy {
     image(this.img, this.x, this.y, this.w, this.h);
 
     if (!this.text) {
-      this.text = random(0, 1) > 0.5 ? '교수' : '최유정';
+      this.text = random(0, 1) > 0.5 ? '교수' : '최승아';
     }
 
     if (this.hidden) {
