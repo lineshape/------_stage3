@@ -18,6 +18,9 @@ let sound1;
 let sound2;
 let sound3;
 
+let isStart = false;
+let startButton;
+
 const choi_dialogs = [
   '',
   '',
@@ -37,17 +40,31 @@ function preload() {
   sound1 = loadSound('assets/망치 1.mp3');
   sound2 = loadSound('assets/망치 2.mp3');
   sound3 = loadSound('assets/망치 3.mp3');
+
+  startButton = new Button(150, 150, 100, 50, '게임 시작');
 }
 
 function setup() {
   createCanvas(400, 400);
   choi = new Me(0, 250, 100, 100);
-
-  // 2초마다 적을 추가하는 코드
-  timer = setInterval(plus_enemy, 2000);
 }
 
 function draw() {
+  // 게임 시작 전 처리
+  if (!isStart) {
+    background(220);
+    startButton.show();
+
+    if (startButton.click()) {
+      isStart = true;
+
+      // 2초마다 적을 추가
+      timer = setInterval(plus_enemy, 2000);
+    }
+    return;
+  }
+
+  textSize(14);
   noCursor();
 
   // 최민식을 두번 클릭했을 때 정의
