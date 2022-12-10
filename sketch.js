@@ -9,13 +9,14 @@ let blood_List = [];
 let choi;
 let choi_clicked = 0;
 
+// 적 나오는거 컨트롤
 let timer = undefined;
+// 최승아, 교수님 나오는 적 컨트롤
 let new_timer = undefined;
 
-let kyosu;
-let youjeong;
-
-let sound;
+let sound1;
+let sound2;
+let sound3;
 
 const choi_dialogs = [
   '',
@@ -32,14 +33,17 @@ const choi_dialogs = [
 function preload() {
   hammer_img = loadImage('assets/hammer.png');
   blood_img = loadImage('assets/blood.png');
-  sound = loadSound('assets/망치 1.mp3');
+
+  sound1 = loadSound('assets/망치 1.mp3');
+  sound2 = loadSound('assets/망치 2.mp3');
+  sound3 = loadSound('assets/망치 3.mp3');
 }
 
 function setup() {
   createCanvas(400, 400);
   choi = new Me(0, 250, 100, 100);
 
-  // 3초마다 적을 추가하는 코드
+  // 2초마다 적을 추가하는 코드
   timer = setInterval(plus_enemy, 2000);
 }
 
@@ -48,11 +52,13 @@ function draw() {
 
   // 최민식을 두번 클릭했을 때 정의
   if (choi_clicked >= 2) {
+    // 적 나오는거 일시 중지
     if (timer) {
       clearInterval(timer);
       timer = null;
     }
 
+    // 최승아, 교수님 적이 나옴
     if (!new_timer) {
       new_timer = setInterval(plus_hidden_enemy, 2000);
     }
@@ -65,6 +71,7 @@ function draw() {
 
   // 클리어 했을 때 처리
   if (score >= 10) {
+    // 적 나오는거 일시 중지
     if (timer) {
       clearInterval(timer);
       timer = null;
@@ -78,6 +85,7 @@ function draw() {
 
   // 최민식을 클릭했을 때
   if (choi.click()) {
+    blood_plus(mouseX, mouseY, true);
     choi_clicked += 1;
   }
 
@@ -89,6 +97,7 @@ function draw() {
     enemys[i].show();
   }
 
+  // 적을 매 프레임마다 이동 시킴
   for (let i = 0; i < enemys.length; i++) {
     enemys[i].move(-3, 0);
   }
@@ -96,7 +105,7 @@ function draw() {
   // 적을 클릭했을 때 적을 지우고 점수를 올림
   for (let i = 0; i < enemys.length; i++) {
     if (enemys[i].click()) {
-      blood_plus(mouseX, mouseY);
+      blood_plus(mouseX, mouseY, false);
       setTimeout(() => blood_List.shift(), 3000);
 
       score += 1;
@@ -109,7 +118,11 @@ function draw() {
 
   // 핏자국
   for (let i = 0; i < blood_List.length; i++) {
-    image(blood_img, blood_List[i][0], blood_List[i][1], 50, 50);
+    if (blood_List[i].isChoi) {
+      image(blood_img, blood_List[i].x, blood_List[i].y, 100, 100);
+    } else {
+      image(blood_img, blood_List[i].x, blood_List[i].y, 50, 50);
+    }
   }
 }
 
@@ -123,6 +136,11 @@ function plus_hidden_enemy() {
   enemys.push(new Enemy(400, 300, 100, 100, true));
 }
 
-function blood_plus(mouseX, mouseY) {
-  blood_List.push([mouseX, mouseY]);
+// 피를 추가함
+function blood_plus(mouseX, mouseY, isChoi) {
+  let random = Math.random();
+  let sound = random < 0.33 ? sound1 : random < 0.66 ? sound2 : sound3;
+  sound.play();
+
+  blood_List.push({ x: mouseX, y: mouseY, isChoi });
 }
